@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="calcApp">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Alcohol blood level calculator</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container">
+    <div ng-controller="mainController">
+      <h1>{{ message }}</h1>
+      <div class="row">
+        <label>Your weight:
+          <input type="range" ng-model="bodyMass" ng-init = "bodyMass=62" min="10" max="200">
+          <input type="number" ng-model="bodyMass">
+        </label>
+        <label>Add a drink
+          <button type="button" class="btn btn-default" ng-click="addDrink()">+</button>
+        </label>
+      </div>
+      <ul ng-repeat="drink in drinkRecord">
+        <li class="row">{{drink.name}}
+          <div>
+            <input type="number" ng-model="name.number" min="0" max="99" ng-init="name.number=1">
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
