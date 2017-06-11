@@ -1,9 +1,13 @@
-<div>
-  <input type="number" ng-model="drinkObject.number" min="0" max="99" ng-init="drinkObject.number=1">
-  This is this  {{drinkObject.number}} many.
-  <select name="" id="" ng-model="drinkObject.pickedDrink">
-    <option ng-repeat="type in drinkList" ng-value="type">{{ type.type }}</option>
+<div class="form-inline">
+  <h2>I am your drink number {{ drink.name }}</h2>
+  <input type="number" ng-model="drink.number" min="0" max="99" ng-init="drink.number=1" class="form-control">
+  <select name="" id="" ng-model="drink.pickedDrink"  class="form-control" ng-change="drink.vol=drink.pickedDrink.vol; drink.proof=drink.pickedDrink.proof">
+    <option ng-repeat="type in availableDrinks" ng-value="type">{{ type.type }}</option>
   </select>
-  <p>Total alcohol mass: </p>
-  <output>{{ calculate({n: drinkObject.number, vol: drinkObject.pickedDrink.vol, proof: drinkObject.pickedDrink.proof  })}}</output>
+  <input type="number" class="form-control" min="0" max="100" ng-model="drink.proof" ng-init="drink.proof=0" placeholder="proof">
+  <input type="number" class="form-control" min="0" max="3000" ng-model="drink.vol" ng-init="drink.vol=0" placeholder="volume">
+  <p class="form-control">Total alcohol mass: 
+      <span>{{ drink.ethanol = calculateOneDrink(drink.number, drink.vol, drink.proof) }}</span>
+  </p>
+  <button ng-click="$emit('killme', drink.name)" class="btn btn-warning form-control">Destroy me</button>
 </div>

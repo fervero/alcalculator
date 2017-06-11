@@ -8,23 +8,39 @@ calcApp.service('calcService', function() {
   }
 });
 
-calcApp.controller("mainController", ['$scope', 'calcService', function($scope, $calcService) {
+calcApp.service('idService', function() {
+  this.id = 0;
+  this.getID = function() {
+    return ++this.id;
+  }
+});
+
+calcApp.controller("mainController", ['$scope', 'calcService', 'idService', function($scope, $calcService, $idService) {
   $scope.drinkRecord = [];
   $scope.calculateOneDrink = $calcService.calculateOneDrink;
   $scope.availableDrinks = [
-    {type: "vodka", proof: "45", vol: "40"},
-    {type: "beer", proof: "6", vol: "500"}
+    {type: "vodka", proof: 45, vol: 40},
+    {type: "beer", proof: 6, vol: 500}
   ];
   $scope.addDrink = function() {
-    $scope.drinkRecord.push({ name: Math.random().toString() });
+    $scope.drinkRecord.push({ name: $idService.getID() });
   }
   $scope.drinksSum = function() {
     return ($scope.drinkRecord)
       .reduce(
         function(acc, drink) { 
-          return acc + drink.number 
+          return acc + drink.ethanol
         }, 0);
   }
+  $scope.destroyRow = function(ID) {
+    var elemIndex = $scope.drinkRecord.findIndex(function(elem) {
+      return elem.name === ID
+    });
+    $scope.drinkRecord.splice(elemIndex, 1);
+  }
+  $scope.$on("killme", function(e, arg) {
+    $scope.destroyRow(arg);
+  });
 }]);
 
 
@@ -32,12 +48,7 @@ calcApp.directive("oneDrink", function() {
   return {
     templateUrl: 'views/one-drink.html',
     require: 'ngModel',
-    replace: true,
-    scope: {
-      drinkObject: "=",
-      drinkList: "=",
-      selectedDrink: "=",
-      calculate: "&"
-    }
+    controller: 'mainController',
+    replace: true
   }
 });

@@ -11,26 +11,26 @@
   <div class="container">
     <div ng-controller="mainController">
       <h1>Hello.</h1>
-      <div class="row">
-        <label>Your weight:
-          <input type="range" ng-model="bodyMass" ng-init = "bodyMass=62" min="10" max="200">
-          <input type="number" ng-model="bodyMass">
-        </label>
-        <label>Add a drink
-          <button type="button" class="btn btn-default" ng-click="addDrink()">+</button>
-        </label>
-      </div>
-      <ul ng-repeat="drink in drinkRecord">
-        <li class="list-group">{{drink.name}}
-          <div class="list-group-item">
-            <div one-drink drink-object="drink" drink-list="availableDrinks" calculate="calculateOneDrink(n, vol, proof)">
-            </div>
-          </div>
-        </li>
-        <div>
-          {{ drinksSum() }}
+      <div class="form-inline">
+        <div class="form-group">
+          <label for="body-mass">Your weight (kg):</label>
+          <input id="body-mass" class="form-control" type="range" ng-model="bodyMass" ng-init = "bodyMass=62" min="10" max="200">
         </div>
-      </ul>
+        <div class="form-group">
+          <input type="number" class="form-control" ng-model="bodyMass" aria-label="your weight">
+        </div>
+        <div class="form-group">
+        <label>
+          <button type="button" class="btn btn-primary form-control" ng-click="addDrink()">+</button>          
+          Add a drink
+        </label>
+        </div>     
+      </div>
+      <div ng-repeat="drink in drinkRecord" one-drink class="list-group-item"></div>
+      <div>
+        <p>Mass of pure ethanol:</p>
+        {{ (drinksSum()).toFixed(0) }}
+      </div>
     </div>
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
