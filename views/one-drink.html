@@ -1,13 +1,23 @@
 <div class="form-inline">
-  <h2>I am your drink number {{ drink.name }}</h2>
-  <input type="number" ng-model="drink.number" min="0" max="99" ng-init="drink.number=1" class="form-control">
-  <select name="" id="" ng-model="drink.pickedDrink"  class="form-control" ng-change="drink.vol=drink.pickedDrink.vol; drink.proof=drink.pickedDrink.proof">
+  <label class="form-control">
+    <input type="number" ng-model="drink.number" min="0" max="99">
+    Qty
+  </label>
+  <select name="" id="" ng-model="drink.pickedDrink" class="form-control stupid-2px-hack" ng-change="drink.vol=drink.pickedDrink.vol; drink.proof=drink.pickedDrink.proof">
+<!-- The "stupid 2px hack" is, I intend, temporary, until I figure out why Bootstrap insists on messing the inline form up. -->    
+    <option value="" disabled selected>Type of drink</option>
     <option ng-repeat="type in availableDrinks" ng-value="type">{{ type.type }}</option>
   </select>
-  <input type="number" class="form-control" min="0" max="100" ng-model="drink.proof" ng-init="drink.proof=0" placeholder="proof">
-  <input type="number" class="form-control" min="0" max="3000" ng-model="drink.vol" ng-init="drink.vol=0" placeholder="volume">
-  <p class="form-control">Total alcohol mass: 
-      <span>{{ drink.ethanol = calculateOneDrink(drink.number, drink.vol, drink.proof) }}</span>
-  </p>
-  <button ng-click="$emit('killme', drink.name)" class="btn btn-warning form-control">Destroy me</button>
+  <label class="form-control">
+    <input type="number" min="0" max="100" step="0.5" ng-model="drink.proof" placeholder="0"> 
+    Alc. by volume
+  </label>
+  <label class="form-control">
+    <input type="number" min="0" max="3000" ng-model="drink.vol" placeholder="0">
+    Volume
+  </label>
+  <label class="form-control">Total alcohol mass: 
+      <span>{{ (drink.ethanol = calculateOneDrink(drink.number, drink.vol, drink.proof)).toFixed(0) }}</span>
+  </label>
+  <button ng-click="$emit('killme', drink.name)" class="btn btn-warning form-control stupid-2px-hack">Remove drink</button>
 </div>
