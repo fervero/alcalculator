@@ -1,0 +1,9 @@
+<div>
+  <input type="number" ng-model="drinkObject.number" min="0" max="99" ng-init="drinkObject.number=1">
+  This is this  {{drinkObject.number}} many.
+  <select name="" id="" ng-model="drinkObject.pickedDrink">
+    <option ng-repeat="type in drinkList" ng-value="type">{{ type.type }}</option>
+  </select>
+  <p>Total alcohol mass: </p>
+  <output>{{ calculate({n: drinkObject.number, vol: drinkObject.pickedDrink.vol, proof: drinkObject.pickedDrink.proof  })}}</output>
+</div>

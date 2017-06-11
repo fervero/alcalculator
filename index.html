@@ -10,7 +10,7 @@
 <body>
   <div class="container">
     <div ng-controller="mainController">
-      <h1>{{ message }}</h1>
+      <h1>Hello.</h1>
       <div class="row">
         <label>Your weight:
           <input type="range" ng-model="bodyMass" ng-init = "bodyMass=62" min="10" max="200">
@@ -21,11 +21,15 @@
         </label>
       </div>
       <ul ng-repeat="drink in drinkRecord">
-        <li class="row">{{drink.name}}
-          <div>
-            <input type="number" ng-model="name.number" min="0" max="99" ng-init="name.number=1">
+        <li class="list-group">{{drink.name}}
+          <div class="list-group-item">
+            <div one-drink drink-object="drink" drink-list="availableDrinks" calculate="calculateOneDrink(n, vol, proof)">
+            </div>
           </div>
         </li>
+        <div>
+          {{ drinksSum() }}
+        </div>
       </ul>
     </div>
   </div>
